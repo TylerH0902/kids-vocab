@@ -984,7 +984,7 @@ function speakRaw(text) {
 }
 
 function speakText(wordId) {
-  const src = `audio/${lang}/${wordId}.mp3`;
+  const src = `audio/${lang}/${wordId}.m4a`;
   if (_audio) { _audio.pause(); _audio = null; }
   _audio = new Audio(src);
   _audio.play().catch(() => {});
