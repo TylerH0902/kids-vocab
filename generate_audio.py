@@ -1,5 +1,6 @@
-"""Regenerate audio using macOS say + afconvert (AAC/M4A, much higher quality)."""
-import os, subprocess, tempfile
+"""Generate audio using Microsoft Edge neural TTS (en-US-JennyNeural / zh-CN-XiaoxiaoNeural)."""
+import asyncio, os, time
+import edge_tts
 
 WORDS = [
     ("dog","狗"), ("cat","猫"), ("bird","鸟"), ("fish","鱼"),
@@ -22,30 +23,28 @@ WORDS = [
     ("bike","自行车"), ("boat","船"), ("rocket","火箭"), ("truck","卡车"),
 ]
 
-EN_VOICE = "Samantha"
-ZH_VOICE = "Tingting"
+EN_VOICE = "en-US-JennyNeural"
+ZH_VOICE = "zh-CN-XiaoxiaoNeural"
 
 os.makedirs("audio/en", exist_ok=True)
 os.makedirs("audio/zh", exist_ok=True)
 
 
-def make(text, voice, out_path):
-    with tempfile.NamedTemporaryFile(suffix='.aiff', delete=False) as f:
-        tmp = f.name
-    try:
-        subprocess.run(['say', '-v', voice, '-r', '130', '-o', tmp, text], check=True)
-        subprocess.run(['afconvert', '-f', 'm4af', '-d', 'aac', tmp, out_path], check=True)
-    finally:
-        if os.path.exists(tmp):
-            os.unlink(tmp)
+async def make(text, voice, out_path):
+    communicate = edge_tts.Communicate(text, voice, rate="-10%")
+    await communicate.save(out_path)
 
 
-for en, zh in WORDS:
-    en_path = f"audio/en/{en}.m4a"
-    zh_path = f"audio/zh/{en}.m4a"
-    print(f"  EN: {en}")
-    make(en, EN_VOICE, en_path)
-    print(f"  ZH: {zh}")
-    make(zh, ZH_VOICE, zh_path)
+async def main():
+    for en, zh in WORDS:
+        en_path = f"audio/en/{en}.mp3"
+        zh_path = f"audio/zh/{en}.mp3"
+        print(f"  EN: {en}")
+        await make(en, EN_VOICE, en_path)
+        print(f"  ZH: {zh}")
+        await make(zh, ZH_VOICE, zh_path)
+        time.sleep(0.2)
+    print(f"\nDone — {len(WORDS)*2} files.")
 
-print(f"\nDone — {len(WORDS)*2} files.")
+
+asyncio.run(main())
