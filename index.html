@@ -18,6 +18,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 #setup{max-width:500px;margin:30px auto;padding:20px;}
 .setup-title{text-align:center;font-size:1.3rem;font-weight:700;color:#555;margin-bottom:20px;}
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
+.age-grid{grid-template-columns:1fr 1fr 1fr;}
 .age-card,.mode-card{border:3px solid #e0e0e0;border-radius:16px;padding:18px 12px;text-align:center;cursor:pointer;transition:.2s;background:#fff;}
 .age-card:hover,.mode-card:hover{border-color:#ff6b6b;transform:scale(1.03);}
 .age-card.selected,.mode-card.selected{border-color:#ff6b6b;background:#fff5f5;}
@@ -124,7 +125,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 <div id="setup">
   <div class="setup-title" id="lbl-choose-age">Choose your age group</div>
   <div class="section-label" id="lbl-age-sec">Age</div>
-  <div class="card-grid">
+  <div class="card-grid age-grid">
     <div class="age-card" onclick="selectAge('1-3', this)">
       <div class="emoji">👶</div>
       <div class="label">1 – 3</div>
@@ -356,7 +357,7 @@ const BOOKS = {
           {en:"A magic spell", zh:"一句魔咒",  correct:false},
         ]},
       { q_en:"What happened to Alice when she ate the cake marked EAT ME in Chapter 1?",
-        q_zh:"爱丽丝在第一章吃了写着"吃我"的蛋糕后发生了什么？",
+        q_zh:"爱丽丝在第一章吃了写着《吃我》的蛋糕后发生了什么？",
         opts:[
           {en:"She grew very tall",     zh:"她变得非常高",  correct:true},
           {en:"She shrank very small",  zh:"她变得非常小",  correct:false},
