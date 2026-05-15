@@ -490,7 +490,7 @@ function renderYoung() {
     const card = document.createElement('div');
     card.className = 'word-card';
     card.dataset.id = opt.id;
-    card.innerHTML = `${opt[lang]}<div class="zh-sub">${lang === 'en' ? opt.zh : opt.en}</div>`;
+    card.innerHTML = opt[lang];
 
     // Desktop drag
     card.draggable = true;
