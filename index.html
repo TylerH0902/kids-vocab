@@ -434,7 +434,7 @@ function startGame() {
 
   document.getElementById('setup').style.display  = 'none';
   document.getElementById('result').style.display = 'none';
-  document.getElementById('game').style.display   = '';
+  document.getElementById('game').style.display   = 'block';
   document.getElementById('feedback').classList.remove('show');
 
   const isYoung = ageGroup !== '5-6';
@@ -675,7 +675,7 @@ function nextWord() {
 // ══════════════════════════════════════════════════════════════════
 function showResult() {
   document.getElementById('game').style.display   = 'none';
-  document.getElementById('result').style.display = '';
+  document.getElementById('result').style.display = 'block';
 
   const pct = total > 0 ? correct / total : 0;
   const stars = pct >= 0.9 ? '⭐⭐⭐' : pct >= 0.7 ? '⭐⭐' : '⭐';
