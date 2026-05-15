@@ -63,7 +63,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 .quiz-audio-btn{background:none;border:none;font-size:1.6rem;cursor:pointer;padding:4px 8px;border-radius:50%;transition:.15s;}
 .quiz-audio-btn:hover{background:#f0f0f0;}
 #quiz-choices{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px;}
-.quiz-opt{background:#f8f8f8;border:3px solid #e8e8e8;border-radius:14px;padding:14px 16px;text-align:left;cursor:pointer;font-size:1rem;color:#333;transition:.2s;line-height:1.4;}
+.quiz-opt{background:#f8f8f8;border:3px solid #e8e8e8;border-radius:14px;padding:14px 16px;text-align:left;cursor:pointer;font-size:1rem;color:#333;transition:.2s;line-height:1.4;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.quiz-opt-text{flex:1;}
+.quiz-opt-speak{background:none;border:none;font-size:1rem;cursor:pointer;padding:2px 6px;border-radius:6px;flex-shrink:0;touch-action:manipulation;color:#aaa;}
+.quiz-opt-speak:hover{background:#e8e8e8;color:#555;}
 .quiz-opt:hover:not(.locked){border-color:#ff6b6b;background:#fff5f5;}
 .quiz-opt.correct-ans{border-color:#4caf50;background:#e8f5e9;color:#2e7d32;}
 .quiz-opt.wrong-ans{border-color:#f44336;background:#ffebee;color:#c62828;}
@@ -779,7 +782,20 @@ function renderQuiz() {
       const btn = document.createElement('div');
       btn.className = 'quiz-opt';
       btn.dataset.correct = opt.correct ? 'true' : 'false';
-      btn.textContent = lang === 'en' ? opt.en : opt.zh;
+      const optText = lang === 'en' ? opt.en : opt.zh;
+
+      const textSpan = document.createElement('span');
+      textSpan.className = 'quiz-opt-text';
+      textSpan.textContent = optText;
+
+      const speakBtn = document.createElement('button');
+      speakBtn.className = 'quiz-opt-speak';
+      speakBtn.textContent = '🔊';
+      speakBtn.addEventListener('click',      e => { e.stopPropagation(); speakRaw(optText); });
+      speakBtn.addEventListener('touchstart', e => { e.stopPropagation(); speakRaw(optText); }, {passive:true});
+
+      btn.appendChild(textSpan);
+      btn.appendChild(speakBtn);
       btn.addEventListener('click', () => onQuizClick(btn));
       box.appendChild(btn);
     });
@@ -888,11 +904,9 @@ function onQuizClick(btn) {
   if (answered) return;
   answered = true;
   const isRight = btn.dataset.correct === 'true';
-  document.querySelectorAll('.quiz-opt').forEach(o => {
-    o.classList.add('locked');
-    if (o.dataset.correct === 'true') o.classList.add('correct-ans');
-  });
-  if (!isRight) btn.classList.add('wrong-ans');
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.add('locked'));
+  if (isRight) btn.classList.add('correct-ans');
+  else         btn.classList.add('wrong-ans');
   if (isRight) correct++;
   showFeedback(isRight);
 }
@@ -921,9 +935,7 @@ function showFeedback(isRight) {
   document.getElementById('fb-emoji').textContent = isRight ? '🌟' : '😊';
   document.getElementById('fb-msg').textContent   = t(isRight ? 'correct' : 'wrong');
   if (gameType === 'book') {
-    const correctOpt = currentWord.opts.find(o => o.correct);
-    const label = correctOpt ? (lang === 'en' ? correctOpt.en : correctOpt.zh) : '';
-    document.getElementById('fb-sub').textContent = isRight ? '' : t('wrongSub', label);
+    document.getElementById('fb-sub').textContent = '';
   } else {
     document.getElementById('fb-sub').textContent = t(isRight ? 'correctSub' : 'wrongSub', currentWord[lang]);
   }
@@ -961,6 +973,15 @@ function showResult() {
 // AUDIO — Web Speech API
 // ══════════════════════════════════════════════════════════════════
 let _audio = null;
+
+function speakRaw(text) {
+  if (!text || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang === 'en' ? 'en-US' : 'zh-CN';
+  u.rate = 0.85;
+  window.speechSynthesis.speak(u);
+}
 
 function speakText(wordId) {
   const src = `audio/${lang}/${wordId}.mp3`;
