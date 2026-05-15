@@ -496,8 +496,8 @@ function renderYoung() {
     const speakBtn = document.createElement('button');
     speakBtn.className = 'card-speak-btn';
     speakBtn.textContent = '🔊';
-    speakBtn.addEventListener('click',      e => { e.stopPropagation(); speakText(opt[lang]); });
-    speakBtn.addEventListener('touchstart', e => { e.stopPropagation(); speakText(opt[lang]); }, {passive:true});
+    speakBtn.addEventListener('click',      e => { e.stopPropagation(); speakText(opt.id); });
+    speakBtn.addEventListener('touchstart', e => { e.stopPropagation(); speakText(opt.id); }, {passive:true});
     speakBtn.draggable = false;
     card.appendChild(speakBtn);
 
@@ -698,18 +698,18 @@ function showResult() {
 // ══════════════════════════════════════════════════════════════════
 // AUDIO — Web Speech API
 // ══════════════════════════════════════════════════════════════════
-function speakText(text) {
-  if (!text || !window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang  = lang === 'en' ? 'en-US' : 'zh-CN';
-  u.rate  = 0.85;
-  window.speechSynthesis.speak(u);
+let _audio = null;
+
+function speakText(wordId) {
+  const src = `audio/${lang}/${wordId}.mp3`;
+  if (_audio) { _audio.pause(); _audio = null; }
+  _audio = new Audio(src);
+  _audio.play().catch(() => {});
 }
 
 function speakWord() {
   if (!currentWord) return;
-  speakText(currentWord[lang]);
+  speakText(currentWord.id);
 }
 
 // ══════════════════════════════════════════════════════════════════
