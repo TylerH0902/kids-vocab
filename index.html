@@ -171,6 +171,20 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
       <div class="book-sub" id="book-alice-sub">Chapters 1–5 · 20 Questions</div>
     </div>
   </div>
+  <div class="book-card" onclick="startBookQuiz('caterpillar')">
+    <div class="book-emoji">🐛</div>
+    <div class="book-info">
+      <div class="book-title" id="book-caterpillar-title">The Very Hungry Caterpillar</div>
+      <div class="book-sub" id="book-caterpillar-sub">20 Questions</div>
+    </div>
+  </div>
+  <div class="book-card" onclick="startBookQuiz('wildthings')">
+    <div class="book-emoji">👑</div>
+    <div class="book-info">
+      <div class="book-title" id="book-wildthings-title">Where the Wild Things Are</div>
+      <div class="book-sub" id="book-wildthings-sub">20 Questions</div>
+    </div>
+  </div>
 </div>
 
 <!-- Game -->
@@ -488,6 +502,346 @@ const BOOKS = {
           {id:"q19_3",en:"One side will take you home",                         zh:"一边会带你回家",              correct:false},
         ]},
     ]
+  },
+
+  caterpillar: {
+    id: "caterpillar",
+    title_en: "The Very Hungry Caterpillar",
+    title_zh: "好饿的毛毛虫",
+    sub_en: "20 Questions",
+    sub_zh: "20题",
+    questions: [
+      { qid:"c0", q_en:"What did the caterpillar hatch from?",
+        q_zh:"毛毛虫是从什么里孵出来的？",
+        opts:[
+          {id:"c0_0",en:"An egg",   zh:"一颗卵",   correct:true},
+          {id:"c0_1",en:"A flower", zh:"一朵花",   correct:false},
+          {id:"c0_2",en:"A cocoon", zh:"一个茧",   correct:false},
+          {id:"c0_3",en:"A seed",   zh:"一粒种子", correct:false},
+        ]},
+      { qid:"c1", q_en:"Where was the egg at the start of the story?",
+        q_zh:"故事开始时，卵在哪里？",
+        opts:[
+          {id:"c1_0",en:"On a leaf",    zh:"在一片叶子上", correct:true},
+          {id:"c1_1",en:"On a flower",  zh:"在一朵花上",   correct:false},
+          {id:"c1_2",en:"In the grass", zh:"在草地上",     correct:false},
+          {id:"c1_3",en:"Under a tree", zh:"在树下",       correct:false},
+        ]},
+      { qid:"c2", q_en:"What warmed the egg and woke the caterpillar?",
+        q_zh:"什么温暖了卵，唤醒了毛毛虫？",
+        opts:[
+          {id:"c2_0",en:"The warm sun", zh:"温暖的太阳", correct:true},
+          {id:"c2_1",en:"The rain",     zh:"雨水",       correct:false},
+          {id:"c2_2",en:"The wind",     zh:"风",         correct:false},
+          {id:"c2_3",en:"A bird",       zh:"一只鸟",     correct:false},
+        ]},
+      { qid:"c3", q_en:"On Monday, what did the caterpillar eat through?",
+        q_zh:"星期一，毛毛虫吃了什么？",
+        opts:[
+          {id:"c3_0",en:"One apple",  zh:"一个苹果", correct:true},
+          {id:"c3_1",en:"One pear",   zh:"一个梨",   correct:false},
+          {id:"c3_2",en:"One plum",   zh:"一个李子", correct:false},
+          {id:"c3_3",en:"One orange", zh:"一个橙子", correct:false},
+        ]},
+      { qid:"c4", q_en:"On Tuesday, what did the caterpillar eat through?",
+        q_zh:"星期二，毛毛虫吃了什么？",
+        opts:[
+          {id:"c4_0",en:"Two pears",   zh:"两个梨",   correct:true},
+          {id:"c4_1",en:"Two apples",  zh:"两个苹果", correct:false},
+          {id:"c4_2",en:"Two plums",   zh:"两个李子", correct:false},
+          {id:"c4_3",en:"Two bananas", zh:"两根香蕉", correct:false},
+        ]},
+      { qid:"c5", q_en:"On Wednesday, what did the caterpillar eat through?",
+        q_zh:"星期三，毛毛虫吃了什么？",
+        opts:[
+          {id:"c5_0",en:"Three plums",   zh:"三个李子", correct:true},
+          {id:"c5_1",en:"Three apples",  zh:"三个苹果", correct:false},
+          {id:"c5_2",en:"Three pears",   zh:"三个梨",   correct:false},
+          {id:"c5_3",en:"Three oranges", zh:"三个橙子", correct:false},
+        ]},
+      { qid:"c6", q_en:"On Thursday, what did the caterpillar eat through?",
+        q_zh:"星期四，毛毛虫吃了什么？",
+        opts:[
+          {id:"c6_0",en:"Four strawberries", zh:"四颗草莓", correct:true},
+          {id:"c6_1",en:"Four cherries",     zh:"四颗樱桃", correct:false},
+          {id:"c6_2",en:"Four grapes",       zh:"四颗葡萄", correct:false},
+          {id:"c6_3",en:"Four oranges",      zh:"四个橙子", correct:false},
+        ]},
+      { qid:"c7", q_en:"On Friday, what did the caterpillar eat through?",
+        q_zh:"星期五，毛毛虫吃了什么？",
+        opts:[
+          {id:"c7_0",en:"Five oranges", zh:"五个橙子", correct:true},
+          {id:"c7_1",en:"Five apples",  zh:"五个苹果", correct:false},
+          {id:"c7_2",en:"Five pears",   zh:"五个梨",   correct:false},
+          {id:"c7_3",en:"Five lemons",  zh:"五个柠檬", correct:false},
+        ]},
+      { qid:"c8", q_en:"How did the caterpillar feel after eating so much on Saturday?",
+        q_zh:"星期六吃了那么多之后，毛毛虫感觉怎么样？",
+        opts:[
+          {id:"c8_0",en:"He had a stomach ache", zh:"他肚子疼",       correct:true},
+          {id:"c8_1",en:"He felt very happy",    zh:"他感到非常开心", correct:false},
+          {id:"c8_2",en:"He fell asleep",        zh:"他睡着了",       correct:false},
+          {id:"c8_3",en:"He felt very strong",   zh:"他感到非常强壮", correct:false},
+        ]},
+      { qid:"c9", q_en:"What did the caterpillar eat on Sunday to feel better?",
+        q_zh:"星期天，毛毛虫吃了什么让自己好受一些？",
+        opts:[
+          {id:"c9_0",en:"One nice green leaf",   zh:"一片嫩绿的叶子", correct:true},
+          {id:"c9_1",en:"One apple",             zh:"一个苹果",       correct:false},
+          {id:"c9_2",en:"Nothing at all",        zh:"什么都没吃",     correct:false},
+          {id:"c9_3",en:"A small piece of cake", zh:"一小块蛋糕",     correct:false},
+        ]},
+      { qid:"c10", q_en:"How many things did the caterpillar eat on Saturday?",
+        q_zh:"星期六毛毛虫共吃了多少种食物？",
+        opts:[
+          {id:"c10_0",en:"Ten",    zh:"十种",   correct:true},
+          {id:"c10_1",en:"Eight",  zh:"八种",   correct:false},
+          {id:"c10_2",en:"Five",   zh:"五种",   correct:false},
+          {id:"c10_3",en:"Twelve", zh:"十二种", correct:false},
+        ]},
+      { qid:"c11", q_en:"Which of these did the caterpillar eat on Saturday?",
+        q_zh:"下列哪种食物是毛毛虫在星期六吃的？",
+        opts:[
+          {id:"c11_0",en:"A slice of chocolate cake", zh:"一块巧克力蛋糕", correct:true},
+          {id:"c11_1",en:"A bowl of soup",            zh:"一碗汤",         correct:false},
+          {id:"c11_2",en:"A sandwich",                zh:"一个三明治",     correct:false},
+          {id:"c11_3",en:"A pizza",                   zh:"一个披萨",       correct:false},
+        ]},
+      { qid:"c12", q_en:"What did the caterpillar build around itself?",
+        q_zh:"毛毛虫在自己周围建造了什么？",
+        opts:[
+          {id:"c12_0",en:"A cocoon", zh:"一个茧", correct:true},
+          {id:"c12_1",en:"A nest",   zh:"一个巢", correct:false},
+          {id:"c12_2",en:"A web",    zh:"一张网", correct:false},
+          {id:"c12_3",en:"A shell",  zh:"一个壳", correct:false},
+        ]},
+      { qid:"c13", q_en:"How long did the caterpillar stay inside the cocoon?",
+        q_zh:"毛毛虫在茧里待了多久？",
+        opts:[
+          {id:"c13_0",en:"More than two weeks", zh:"两周多",   correct:true},
+          {id:"c13_1",en:"One week",            zh:"一周",     correct:false},
+          {id:"c13_2",en:"One day",             zh:"一天",     correct:false},
+          {id:"c13_3",en:"One month",           zh:"一个月",   correct:false},
+        ]},
+      { qid:"c14", q_en:"What did the caterpillar become after leaving the cocoon?",
+        q_zh:"毛毛虫从茧里出来后变成了什么？",
+        opts:[
+          {id:"c14_0",en:"A beautiful butterfly", zh:"一只美丽的蝴蝶",   correct:true},
+          {id:"c14_1",en:"A moth",                zh:"一只飞蛾",         correct:false},
+          {id:"c14_2",en:"A bigger caterpillar",  zh:"一条更大的毛毛虫", correct:false},
+          {id:"c14_3",en:"A dragonfly",           zh:"一只蜻蜓",         correct:false},
+        ]},
+      { qid:"c15", q_en:"How would you describe the caterpillar at the very beginning?",
+        q_zh:"你如何描述故事开始时的毛毛虫？",
+        opts:[
+          {id:"c15_0",en:"Tiny and hungry", zh:"又小又饿",   correct:true},
+          {id:"c15_1",en:"Big and strong",  zh:"又大又壮",   correct:false},
+          {id:"c15_2",en:"Sleepy and slow", zh:"又困又慢",   correct:false},
+          {id:"c15_3",en:"Happy and full",  zh:"又快乐又饱", correct:false},
+        ]},
+      { qid:"c16", q_en:"On which day did the caterpillar eat the most food?",
+        q_zh:"毛毛虫在哪天吃的东西最多？",
+        opts:[
+          {id:"c16_0",en:"Saturday",  zh:"星期六", correct:true},
+          {id:"c16_1",en:"Friday",    zh:"星期五", correct:false},
+          {id:"c16_2",en:"Sunday",    zh:"星期天", correct:false},
+          {id:"c16_3",en:"Thursday",  zh:"星期四", correct:false},
+        ]},
+      { qid:"c17", q_en:"On which day did the caterpillar start eating?",
+        q_zh:"毛毛虫从哪天开始吃东西？",
+        opts:[
+          {id:"c17_0",en:"Monday",    zh:"星期一", correct:true},
+          {id:"c17_1",en:"Sunday",    zh:"星期天", correct:false},
+          {id:"c17_2",en:"Tuesday",   zh:"星期二", correct:false},
+          {id:"c17_3",en:"Wednesday", zh:"星期三", correct:false},
+        ]},
+      { qid:"c18", q_en:"After eating the green leaf, how did the caterpillar feel?",
+        q_zh:"吃了绿叶之后，毛毛虫感觉怎么样？",
+        opts:[
+          {id:"c18_0",en:"Much better",  zh:"好多了",   correct:true},
+          {id:"c18_1",en:"Still hungry", zh:"还是很饿", correct:false},
+          {id:"c18_2",en:"Very tired",   zh:"非常疲倦", correct:false},
+          {id:"c18_3",en:"Very sad",     zh:"非常伤心", correct:false},
+        ]},
+      { qid:"c19", q_en:"Which of these was NOT something the caterpillar ate on Saturday?",
+        q_zh:"下列哪样东西不是毛毛虫在星期六吃的？",
+        opts:[
+          {id:"c19_0",en:"A bowl of soup", zh:"一碗汤",    correct:true},
+          {id:"c19_1",en:"A pickle",       zh:"一根腌黄瓜",correct:false},
+          {id:"c19_2",en:"A cupcake",      zh:"一个小蛋糕",correct:false},
+          {id:"c19_3",en:"A sausage",      zh:"一根香肠",  correct:false},
+        ]},
+    ]
+  },
+
+  wildthings: {
+    id: "wildthings",
+    title_en: "Where the Wild Things Are",
+    title_zh: "野兽国",
+    sub_en: "20 Questions",
+    sub_zh: "20题",
+    questions: [
+      { qid:"w0", q_en:"What was Max wearing when the story began?",
+        q_zh:"故事开始时，麦克斯穿着什么？",
+        opts:[
+          {id:"w0_0",en:"A wolf suit",       zh:"狼的服装",      correct:true},
+          {id:"w0_1",en:"A monster costume", zh:"怪兽服装",      correct:false},
+          {id:"w0_2",en:"His pajamas",       zh:"他的睡衣",      correct:false},
+          {id:"w0_3",en:"A superhero cape",  zh:"超级英雄斗篷",  correct:false},
+        ]},
+      { qid:"w1", q_en:"What mischief did Max make?",
+        q_zh:"麦克斯做了什么恶作剧？",
+        opts:[
+          {id:"w1_0",en:"He chased the dog with a fork", zh:"他用叉子追狗",   correct:true},
+          {id:"w1_1",en:"He broke a window",             zh:"他打破了窗户",   correct:false},
+          {id:"w1_2",en:"He spilled his dinner",         zh:"他打翻了晚餐",   correct:false},
+          {id:"w1_3",en:"He drew on the walls",          zh:"他在墙上乱画",   correct:false},
+        ]},
+      { qid:"w2", q_en:"What did Max's mother call him?",
+        q_zh:"麦克斯的妈妈叫他什么？",
+        opts:[
+          {id:"w2_0",en:"Wild thing",     zh:"野兽",  correct:true},
+          {id:"w2_1",en:"Naughty boy",    zh:"淘气包",correct:false},
+          {id:"w2_2",en:"Little monster", zh:"小怪兽",correct:false},
+          {id:"w2_3",en:"Bad wolf",       zh:"坏狼",  correct:false},
+        ]},
+      { qid:"w3", q_en:"What did Max shout back at his mother?",
+        q_zh:"麦克斯对妈妈大喊了什么？",
+        opts:[
+          {id:"w3_0",en:"I'll eat you up!", zh:"我要把你吃掉！", correct:true},
+          {id:"w3_1",en:"Go away!",         zh:"走开！",         correct:false},
+          {id:"w3_2",en:"I don't care!",    zh:"我不在乎！",     correct:false},
+          {id:"w3_3",en:"You're mean!",     zh:"你太坏了！",     correct:false},
+        ]},
+      { qid:"w4", q_en:"What punishment did Max receive?",
+        q_zh:"麦克斯受到了什么惩罚？",
+        opts:[
+          {id:"w4_0",en:"Sent to bed without supper",  zh:"没吃晚饭就上床睡觉", correct:true},
+          {id:"w4_1",en:"He lost his toys",            zh:"没收了他的玩具",     correct:false},
+          {id:"w4_2",en:"He was not allowed outside",  zh:"不让他出门",         correct:false},
+          {id:"w4_3",en:"He had to clean his room",    zh:"让他打扫房间",       correct:false},
+        ]},
+      { qid:"w5", q_en:"What grew in Max's bedroom?",
+        q_zh:"麦克斯的卧室里长出了什么？",
+        opts:[
+          {id:"w5_0",en:"A forest", zh:"一片森林", correct:true},
+          {id:"w5_1",en:"A garden", zh:"一个花园", correct:false},
+          {id:"w5_2",en:"An ocean", zh:"一片海洋", correct:false},
+          {id:"w5_3",en:"A jungle", zh:"一片丛林", correct:false},
+        ]},
+      { qid:"w6", q_en:"How did Max travel to where the wild things are?",
+        q_zh:"麦克斯是怎么到达野兽国的？",
+        opts:[
+          {id:"w6_0",en:"In a private boat",    zh:"乘坐一艘船",     correct:true},
+          {id:"w6_1",en:"By flying",            zh:"飞翔",           correct:false},
+          {id:"w6_2",en:"Through a magic door", zh:"穿过一扇魔法门", correct:false},
+          {id:"w6_3",en:"Riding a wild thing",  zh:"骑着一只野兽",   correct:false},
+        ]},
+      { qid:"w7", q_en:"How long did Max sail to reach the wild things?",
+        q_zh:"麦克斯航行了多久才到达野兽国？",
+        opts:[
+          {id:"w7_0",en:"Almost a year", zh:"将近一年",   correct:true},
+          {id:"w7_1",en:"One night",     zh:"一个晚上",   correct:false},
+          {id:"w7_2",en:"One week",      zh:"一个星期",   correct:false},
+          {id:"w7_3",en:"Three days",    zh:"三天",       correct:false},
+        ]},
+      { qid:"w8", q_en:"How did Max tame the wild things?",
+        q_zh:"麦克斯是怎么驯服野兽的？",
+        opts:[
+          {id:"w8_0",en:"He stared into their yellow eyes without blinking","zh":"他盯着它们的黄色眼睛一动不动",correct:true},
+          {id:"w8_1",en:"He roared very loudly",                           "zh":"他大声咆哮",                   correct:false},
+          {id:"w8_2",en:"He gave them food",                               "zh":"他给它们食物",                 correct:false},
+          {id:"w8_3",en:"He danced with them",                             "zh":"他和它们一起跳舞",             correct:false},
+        ]},
+      { qid:"w9", q_en:"What colour were the wild things' eyes?",
+        q_zh:"野兽的眼睛是什么颜色的？",
+        opts:[
+          {id:"w9_0",en:"Yellow", zh:"黄色", correct:true},
+          {id:"w9_1",en:"Red",    zh:"红色", correct:false},
+          {id:"w9_2",en:"Green",  zh:"绿色", correct:false},
+          {id:"w9_3",en:"Blue",   zh:"蓝色", correct:false},
+        ]},
+      { qid:"w10", q_en:"What title did the wild things give Max?",
+        q_zh:"野兽们给了麦克斯什么称号？",
+        opts:[
+          {id:"w10_0",en:"King of All Wild Things", zh:"所有野兽的王", correct:true},
+          {id:"w10_1",en:"Master of the Forest",    zh:"森林之主",     correct:false},
+          {id:"w10_2",en:"Lord of the Monsters",    zh:"怪兽领主",     correct:false},
+          {id:"w10_3",en:"Chief of the Wild",       zh:"野兽酋长",     correct:false},
+        ]},
+      { qid:"w11", q_en:"What did the wild things do during the wild rumpus?",
+        q_zh:"在野性狂欢中，野兽们做了什么？",
+        opts:[
+          {id:"w11_0",en:"They roared and danced through the forest","zh":"它们在森林里嚎叫跳舞", correct:true},
+          {id:"w11_1",en:"They ate a big feast",                    "zh":"它们大吃一顿",         correct:false},
+          {id:"w11_2",en:"They swam in the sea",                    "zh":"它们在海里游泳",       correct:false},
+          {id:"w11_3",en:"They built a castle",                     "zh":"它们建造了城堡",       correct:false},
+        ]},
+      { qid:"w12", q_en:"Who stopped the wild rumpus?",
+        q_zh:"是谁终止了野性狂欢？",
+        opts:[
+          {id:"w12_0",en:"Max",              zh:"麦克斯",   correct:true},
+          {id:"w12_1",en:"The wild things",  zh:"野兽们自己",correct:false},
+          {id:"w12_2",en:"The sun rising",   zh:"太阳升起", correct:false},
+          {id:"w12_3",en:"Max's mother",     zh:"麦克斯的妈妈",correct:false},
+        ]},
+      { qid:"w13", q_en:"How did Max punish the wild things?",
+        q_zh:"麦克斯是怎么惩罚野兽的？",
+        opts:[
+          {id:"w13_0",en:"Sent them to bed without supper","zh":"不让它们吃晚饭就去睡觉", correct:true},
+          {id:"w13_1",en:"Locked them away",              "zh":"把它们关了起来",         correct:false},
+          {id:"w13_2",en:"Took their crowns",             "zh":"摘走了它们的皇冠",       correct:false},
+          {id:"w13_3",en:"Sailed away immediately",       "zh":"立刻扬帆离去",           correct:false},
+        ]},
+      { qid:"w14", q_en:"Why did Max decide to leave the wild things?",
+        q_zh:"麦克斯为什么决定离开野兽国？",
+        opts:[
+          {id:"w14_0",en:"He wanted to be where someone loved him most","zh":"他想去一个最爱他的人身边",correct:true},
+          {id:"w14_1",en:"He was bored",                               "zh":"他感到无聊了",            correct:false},
+          {id:"w14_2",en:"He was scared",                              "zh":"他感到害怕",              correct:false},
+          {id:"w14_3",en:"He was very hungry",                         "zh":"他非常饿",                correct:false},
+        ]},
+      { qid:"w15", q_en:"What did Max smell that made him want to go home?",
+        q_zh:"麦克斯闻到了什么让他想回家？",
+        opts:[
+          {id:"w15_0",en:"Good things to eat",   zh:"美食的香味",   correct:true},
+          {id:"w15_1",en:"His mother's perfume", zh:"妈妈的香水",   correct:false},
+          {id:"w15_2",en:"Fresh sea air",        zh:"新鲜的海风",   correct:false},
+          {id:"w15_3",en:"Flowers",              zh:"花香",         correct:false},
+        ]},
+      { qid:"w16", q_en:"What did the wild things shout when Max wanted to leave?",
+        q_zh:"麦克斯要离开时，野兽们喊了什么？",
+        opts:[
+          {id:"w16_0",en:"Oh please don't go, we love you so!", zh:"哦，请不要走，我们爱你！", correct:true},
+          {id:"w16_1",en:"Goodbye King Max!",                   zh:"再见，麦克斯国王！",       correct:false},
+          {id:"w16_2",en:"Come back soon!",                     zh:"快点回来！",               correct:false},
+          {id:"w16_3",en:"We will miss you!",                   zh:"我们会想念你的！",         correct:false},
+        ]},
+      { qid:"w17", q_en:"How long did Max sail on the way home?",
+        q_zh:"麦克斯回家路上航行了多久？",
+        opts:[
+          {id:"w17_0",en:"Over a year", zh:"一年多",   correct:true},
+          {id:"w17_1",en:"One night",   zh:"一个晚上", correct:false},
+          {id:"w17_2",en:"One week",    zh:"一个星期", correct:false},
+          {id:"w17_3",en:"One day",     zh:"一天",     correct:false},
+        ]},
+      { qid:"w18", q_en:"What was waiting for Max when he got home?",
+        q_zh:"麦克斯回家后，什么在等着他？",
+        opts:[
+          {id:"w18_0",en:"His supper",  zh:"他的晚饭", correct:true},
+          {id:"w18_1",en:"His mother",  zh:"他的妈妈", correct:false},
+          {id:"w18_2",en:"His toys",    zh:"他的玩具", correct:false},
+          {id:"w18_3",en:"An apology",  zh:"一个道歉", correct:false},
+        ]},
+      { qid:"w19", q_en:"How was Max's supper when he arrived home?",
+        q_zh:"麦克斯到家时，他的晚饭是什么状态？",
+        opts:[
+          {id:"w19_0",en:"Still hot",        zh:"还是热的",     correct:true},
+          {id:"w19_1",en:"Cold",             zh:"冷掉了",       correct:false},
+          {id:"w19_2",en:"Already eaten",    zh:"已经被吃掉了", correct:false},
+          {id:"w19_3",en:"Left on the floor",zh:"留在地板上",   correct:false},
+        ]},
+    ]
   }
 };
 
@@ -589,9 +943,11 @@ function applyLang() {
   document.getElementById('lbl-home').textContent       = t('home');
   document.getElementById('fb-next-btn').textContent    = t('next');
   document.getElementById('lbl-books-sec').textContent  = t('booksSec');
-  const b = BOOKS.alice;
-  document.getElementById('book-alice-title').textContent = lang === 'en' ? b.title_en : b.title_zh;
-  document.getElementById('book-alice-sub').textContent   = lang === 'en' ? b.sub_en   : b.sub_zh;
+  ['alice','caterpillar','wildthings'].forEach(id => {
+    const b = BOOKS[id];
+    document.getElementById(`book-${id}-title`).textContent = lang === 'en' ? b.title_en : b.title_zh;
+    document.getElementById(`book-${id}-sub`).textContent   = lang === 'en' ? b.sub_en   : b.sub_zh;
+  });
 }
 
 // ══════════════════════════════════════════════════════════════════
