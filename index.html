@@ -1874,7 +1874,7 @@ function renderQuiz() {
       btn.className = 'quiz-opt';
       btn.dataset.id      = opt.id;
       btn.dataset.correct = (opt.id === w.id) ? 'true' : 'false';
-      btn.textContent = opt[lang === 'en' ? 'def_en' : 'def_zh'];
+      btn.textContent = opt[lang === 'en' ? 'def_en' : 'def_zh'] || opt[lang === 'en' ? 'zh' : 'en'];
       btn.addEventListener('click', () => onQuizClick(btn));
       box.appendChild(btn);
     });
