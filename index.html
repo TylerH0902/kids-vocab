@@ -103,6 +103,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 /* ── Book quiz section ── */
 .section-divider{border:none;border-top:2px dashed #e8e8e8;margin:20px 0;}
 .books-label{font-size:.85rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
+.book-category{margin-bottom:18px;}
+.book-category-label{font-size:.72rem;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;padding-left:2px;}
 .book-card{display:flex;align-items:center;gap:14px;background:#fff;border:3px solid #e0e0e0;border-radius:16px;padding:14px 16px;cursor:pointer;transition:.2s;margin-bottom:12px;}
 .book-card:hover{border-color:#ff6b6b;transform:translateX(4px);}
 .book-card .book-cover{width:52px;height:70px;object-fit:cover;border-radius:6px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.18);}
@@ -164,39 +166,47 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 
   <hr class="section-divider"/>
   <div class="books-label" id="lbl-books-sec">📚 Book Quiz</div>
-  <div class="book-card" onclick="startBookQuiz('alice')">
-    <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
-    <div class="book-info">
-      <div class="book-title" id="book-alice-title">Alice in Wonderland</div>
-      <div class="book-sub" id="book-alice-sub">Chapters 1–5 · 20 Questions</div>
+
+  <div class="book-category">
+    <div class="book-category-label" id="lbl-cat-fairy">Fairy Tales</div>
+    <div class="book-card" onclick="startBookQuiz('alice')">
+      <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
+      <div class="book-info">
+        <div class="book-title" id="book-alice-title">Alice in Wonderland</div>
+        <div class="book-sub" id="book-alice-sub">Chapters 1–5 · 20 Questions</div>
+      </div>
+    </div>
+    <div class="book-card" onclick="startBookQuiz('alice2')">
+      <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
+      <div class="book-info">
+        <div class="book-title" id="book-alice2-title">Alice in Wonderland</div>
+        <div class="book-sub" id="book-alice2-sub">Chapters 6–9 · 20 Questions</div>
+      </div>
+    </div>
+    <div class="book-card" onclick="startBookQuiz('alice3')">
+      <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
+      <div class="book-info">
+        <div class="book-title" id="book-alice3-title">Alice in Wonderland</div>
+        <div class="book-sub" id="book-alice3-sub">Chapters 10–12 · 20 Questions</div>
+      </div>
     </div>
   </div>
-  <div class="book-card" onclick="startBookQuiz('alice2')">
-    <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
-    <div class="book-info">
-      <div class="book-title" id="book-alice2-title">Alice in Wonderland</div>
-      <div class="book-sub" id="book-alice2-sub">Chapters 6–9 · 20 Questions</div>
+
+  <div class="book-category">
+    <div class="book-category-label" id="lbl-cat-picture">Picture Books</div>
+    <div class="book-card" onclick="startBookQuiz('caterpillar')">
+      <img class="book-cover" src="img/caterpillar.jpg" alt="The Very Hungry Caterpillar">
+      <div class="book-info">
+        <div class="book-title" id="book-caterpillar-title">The Very Hungry Caterpillar</div>
+        <div class="book-sub" id="book-caterpillar-sub">20 Questions</div>
+      </div>
     </div>
-  </div>
-  <div class="book-card" onclick="startBookQuiz('alice3')">
-    <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
-    <div class="book-info">
-      <div class="book-title" id="book-alice3-title">Alice in Wonderland</div>
-      <div class="book-sub" id="book-alice3-sub">Chapters 10–12 · 20 Questions</div>
-    </div>
-  </div>
-  <div class="book-card" onclick="startBookQuiz('caterpillar')">
-    <img class="book-cover" src="img/caterpillar.jpg" alt="The Very Hungry Caterpillar">
-    <div class="book-info">
-      <div class="book-title" id="book-caterpillar-title">The Very Hungry Caterpillar</div>
-      <div class="book-sub" id="book-caterpillar-sub">20 Questions</div>
-    </div>
-  </div>
-  <div class="book-card" onclick="startBookQuiz('wildthings')">
-    <img class="book-cover" src="img/wildthings.jpg" alt="Where the Wild Things Are">
-    <div class="book-info">
-      <div class="book-title" id="book-wildthings-title">Where the Wild Things Are</div>
-      <div class="book-sub" id="book-wildthings-sub">20 Questions</div>
+    <div class="book-card" onclick="startBookQuiz('wildthings')">
+      <img class="book-cover" src="img/wildthings.jpg" alt="Where the Wild Things Are">
+      <div class="book-info">
+        <div class="book-title" id="book-wildthings-title">Where the Wild Things Are</div>
+        <div class="book-sub" id="book-wildthings-sub">20 Questions</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1231,6 +1241,8 @@ const T = {
     clickToHear: "Tap the picture to hear it!",
     booksSec:    "📚 Book Quiz",
     bookDone:    "Quiz Complete!",
+    catFairy:    "Fairy Tales",
+    catPicture:  "Picture Books",
   },
   zh: {
     title:       "🌟 词语游戏",
@@ -1260,6 +1272,8 @@ const T = {
     clickToHear: "点击图片听发音！",
     booksSec:    "📚 书本测验",
     bookDone:    "测验完成！",
+    catFairy:    "童话故事",
+    catPicture:  "绘本",
   }
 };
 
@@ -1296,7 +1310,9 @@ function applyLang() {
   document.getElementById('lbl-play-again').textContent = t('playAgain');
   document.getElementById('lbl-home').textContent       = t('home');
   document.getElementById('fb-next-btn').textContent    = t('next');
-  document.getElementById('lbl-books-sec').textContent  = t('booksSec');
+  document.getElementById('lbl-books-sec').textContent   = t('booksSec');
+  document.getElementById('lbl-cat-fairy').textContent   = t('catFairy');
+  document.getElementById('lbl-cat-picture').textContent = t('catPicture');
   ['alice','alice2','alice3','caterpillar','wildthings'].forEach(id => {
     const b = BOOKS[id];
     document.getElementById(`book-${id}-title`).textContent = lang === 'en' ? b.title_en : b.title_zh;
