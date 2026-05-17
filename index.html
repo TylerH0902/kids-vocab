@@ -15,7 +15,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 .lang-btn.active{background:#fff;color:#ff6b6b;}
 
 /* ── Setup screen ── */
-#setup{max-width:500px;margin:30px auto;padding:20px;}
+#setup{max-width:500px;margin:0 auto;padding:20px;}
 .setup-title{text-align:center;font-size:1.3rem;font-weight:700;color:#555;margin-bottom:20px;}
 .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px;}
 .age-grid{grid-template-columns:1fr 1fr 1fr;}
@@ -113,6 +113,32 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 
 /* ── Book question ── */
 .quiz-question{font-size:1.1rem;font-weight:600;color:#333;line-height:1.5;margin-bottom:4px;text-align:left;}
+
+/* ── Tab navigation ── */
+.tab-bar{max-width:500px;margin:0 auto;padding:0 16px;display:flex;border-bottom:2px solid #e8e8e8;}
+.tab-btn{flex:1;padding:12px 4px;font-size:.85rem;font-weight:700;color:#bbb;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;transition:.15s;}
+.tab-btn.active{color:#ff6b6b;border-bottom-color:#ff6b6b;}
+.tab-btn:hover:not(.active){color:#888;}
+
+/* ── Spell It panel ── */
+.tab-panel{max-width:500px;margin:0 auto;padding:20px;}
+.spell-card{background:#fff;border-radius:24px;box-shadow:0 4px 20px rgba(0,0,0,.1);padding:24px;text-align:center;margin-bottom:20px;}
+.spell-emoji-big{font-size:5rem;line-height:1;margin-bottom:6px;}
+.spell-zh{font-size:1.1rem;color:#bbb;margin-bottom:14px;}
+.spell-audio-btn{display:block;width:100%;padding:12px;font-size:1rem;font-weight:700;background:#fff5f5;border:3px solid #ffcece;border-radius:14px;cursor:pointer;color:#ff6b6b;margin-bottom:14px;transition:.15s;}
+.spell-audio-btn:hover{background:#ffe0e0;}
+.spell-dash{font-size:.95rem;color:#ccc;letter-spacing:.35em;margin-bottom:14px;font-family:monospace;}
+.spell-input{width:100%;font-size:1.6rem;text-align:center;border:3px solid #e0e0e0;border-radius:14px;padding:14px;outline:none;letter-spacing:.1em;font-family:inherit;}
+.spell-input:focus{border-color:#ff6b6b;}
+.spell-check-btn,.spell-next-btn{display:block;width:100%;padding:14px;font-size:1.05rem;font-weight:700;border:none;border-radius:14px;cursor:pointer;margin-top:12px;transition:.15s;}
+.spell-check-btn{background:#ff6b6b;color:#fff;}
+.spell-check-btn:hover{background:#e85555;}
+.spell-next-btn{background:#4caf50;color:#fff;}
+.spell-next-btn:hover{background:#43a047;}
+.spell-fb-correct{font-size:1.4rem;font-weight:800;color:#4caf50;margin:10px 0 4px;}
+.spell-fb-wrong{font-size:1rem;color:#e53935;margin:10px 0 4px;}
+.spell-fb-word{font-size:2rem;font-weight:800;color:#333;letter-spacing:.12em;margin-bottom:4px;}
+#spell-game{max-width:500px;margin:0 auto;padding:20px;display:none;}
 </style>
 </head>
 <body>
@@ -126,7 +152,14 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
   </div>
 </div>
 
-<!-- Setup -->
+<!-- Tab bar -->
+<div class="tab-bar" id="tab-bar" style="padding-top:16px;margin-top:16px;">
+  <button class="tab-btn active" id="tab-wordplay" onclick="switchTab('wordplay')"><span id="lbl-tab-wordplay">Word Play</span></button>
+  <button class="tab-btn" id="tab-spell" onclick="switchTab('spell')"><span id="lbl-tab-spell">✏️ Spell It</span></button>
+  <button class="tab-btn" id="tab-books" onclick="switchTab('books')"><span id="lbl-tab-books">📚 Books</span></button>
+</div>
+
+<!-- Setup (Word Play tab) -->
 <div id="setup">
   <div class="setup-title" id="lbl-choose-age">Choose your age group</div>
   <div class="section-label" id="lbl-age-sec">Age</div>
@@ -163,8 +196,32 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
   </div>
 
   <button class="start-btn" id="start-btn" type="button" disabled onclick="startGame()">▶ Start!</button>
+</div>
 
-  <hr class="section-divider"/>
+<!-- Spell It tab panel -->
+<div id="spell-panel" class="tab-panel" style="display:none">
+  <div class="setup-title" id="lbl-spell-choose">Choose your age group</div>
+  <div class="card-grid age-grid">
+    <div class="age-card" onclick="startSpell('1-3')">
+      <div class="emoji">👶</div>
+      <div class="label">1 – 3</div>
+      <div class="sub" id="spell-sub-13">3–4 letter words</div>
+    </div>
+    <div class="age-card" onclick="startSpell('3-4')">
+      <div class="emoji">🧒</div>
+      <div class="label">3 – 4</div>
+      <div class="sub" id="spell-sub-34">5 letter words</div>
+    </div>
+    <div class="age-card" onclick="startSpell('5-6')">
+      <div class="emoji">👦</div>
+      <div class="label">5 – 6</div>
+      <div class="sub" id="spell-sub-56">6+ letter words</div>
+    </div>
+  </div>
+</div>
+
+<!-- Books tab panel — contains book cards moved from setup -->
+<div id="books-panel" class="tab-panel" style="display:none">
   <div class="books-label" id="lbl-books-sec">📚 Book Quiz</div>
 
   <div class="book-category">
@@ -244,6 +301,33 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
       <div class="quiz-question" id="quiz-question" style="display:none"></div>
       <button class="quiz-audio-btn" id="quiz-audio-btn" onclick="speakWord()">🔊</button>
       <div id="quiz-choices"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Spell game screen -->
+<div id="spell-game">
+  <button class="back-btn" onclick="goSpellSetup()">← <span id="lbl-spell-back">Back</span></button>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="spell-prog-bar" style="width:0%"></div></div>
+  <div class="progress-text" id="spell-prog-text">1 / 34</div>
+  <div class="spell-card">
+    <div id="spell-emoji" class="spell-emoji-big">🐕</div>
+    <div id="spell-zh" class="spell-zh">狗</div>
+    <button class="spell-audio-btn" onclick="playSpellAudio()">🔊 <span id="lbl-spell-hear">Tap to hear the word</span></button>
+    <div id="spell-dash" class="spell-dash">_ _ _</div>
+    <input id="spell-input" class="spell-input" type="text"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      placeholder="Type here…"
+      onkeydown="if(event.key==='Enter')checkSpell()">
+    <button id="spell-check-btn" class="spell-check-btn" onclick="checkSpell()">
+      <span id="lbl-spell-check">✓ Check</span>
+    </button>
+    <div id="spell-feedback" style="display:none">
+      <div id="spell-fb-msg"></div>
+      <div id="spell-fb-word"></div>
+      <button class="spell-next-btn" onclick="nextSpell()">
+        <span id="lbl-spell-next">Next →</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1388,6 +1472,15 @@ const BOOKS = {
 };
 
 // ══════════════════════════════════════════════════════════════════
+// SPELL IT — word pools per age group
+// ══════════════════════════════════════════════════════════════════
+const SPELL_WORDS = {
+  '1-3': WORDS.filter(w => w.en.length <= 4),
+  '3-4': WORDS.filter(w => w.en.length === 5),
+  '5-6': WORDS.filter(w => w.en.length >= 6),
+};
+
+// ══════════════════════════════════════════════════════════════════
 // i18n
 // ══════════════════════════════════════════════════════════════════
 const T = {
@@ -1422,6 +1515,15 @@ const T = {
     catFairy:    "Fairy Tales",
     catPicture:  "Picture Books",
     catNovel:    "Children's Novels",
+    tabWordPlay: "Word Play",
+    tabSpell:    "✏️ Spell It",
+    tabBooks:    "📚 Books",
+    spellHear:   "Tap to hear the word",
+    spellCheck:  "✓ Check",
+    spellChoose: "Choose your age group",
+    spell13:     "3–4 letter words",
+    spell34:     "5 letter words",
+    spell56:     "6+ letter words",
   },
   zh: {
     title:       "🌟 词语游戏",
@@ -1454,6 +1556,15 @@ const T = {
     catFairy:    "童话故事",
     catPicture:  "绘本",
     catNovel:    "儿童小说",
+    tabWordPlay: "词语游戏",
+    tabSpell:    "✏️ 拼写",
+    tabBooks:    "📚 书本",
+    spellHear:   "点击听单词",
+    spellCheck:  "✓ 检查",
+    spellChoose: "选择年龄组",
+    spell13:     "3–4个字母的单词",
+    spell34:     "5个字母的单词",
+    spell56:     "6个以上字母的单词",
   }
 };
 
@@ -1494,6 +1605,13 @@ function applyLang() {
   document.getElementById('lbl-cat-fairy').textContent   = t('catFairy');
   document.getElementById('lbl-cat-picture').textContent = t('catPicture');
   document.getElementById('lbl-cat-novel').textContent   = t('catNovel');
+  document.getElementById('lbl-tab-wordplay').textContent = t('tabWordPlay');
+  document.getElementById('lbl-tab-spell').textContent    = t('tabSpell');
+  document.getElementById('lbl-tab-books').textContent    = t('tabBooks');
+  document.getElementById('lbl-spell-choose').textContent = t('spellChoose');
+  document.getElementById('spell-sub-13').textContent     = t('spell13');
+  document.getElementById('spell-sub-34').textContent     = t('spell34');
+  document.getElementById('spell-sub-56').textContent     = t('spell56');
   ['alice','alice2','alice3','caterpillar','wildthings','wonder'].forEach(id => {
     const b = BOOKS[id];
     document.getElementById(`book-${id}-title`).textContent = lang === 'en' ? b.title_en : b.title_zh;
@@ -1506,8 +1624,15 @@ function applyLang() {
 // ══════════════════════════════════════════════════════════════════
 let ageGroup     = null;
 let gameMode     = null;
-let gameType     = 'vocab';   // 'vocab' | 'book'
+let gameType     = 'vocab';   // 'vocab' | 'book' | 'spell'
 let currentBookId = null;
+let activeTab    = 'wordplay';
+let spellAgeGroup = null;
+let spellPool    = [];
+let spellIndex   = 0;
+let spellTotal   = 0;
+let spellCorrect = 0;
+let spellWord    = null;
 let wordPool     = [];
 let queueIndex   = 0;
 let correct      = 0;
@@ -1537,10 +1662,12 @@ function updateStartBtn() {
 
 function goSetup() {
   gameType = 'vocab';
-  document.getElementById('setup').style.display  = '';
-  document.getElementById('game').style.display   = 'none';
-  document.getElementById('result').style.display = 'none';
+  document.getElementById('tab-bar').style.display      = '';
+  document.getElementById('game').style.display         = 'none';
+  document.getElementById('spell-game').style.display   = 'none';
+  document.getElementById('result').style.display       = 'none';
   document.getElementById('feedback').classList.remove('show');
+  switchTab(activeTab);
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -1553,9 +1680,12 @@ function startGame() {
   total      = gameMode === 'test' ? TEST_COUNT[ageGroup] : wordPool.length;
   currentWord = null;
 
-  document.getElementById('setup').style.display  = 'none';
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('game').style.display   = 'block';
+  document.getElementById('setup').style.display      = 'none';
+  document.getElementById('result').style.display     = 'none';
+  document.getElementById('game').style.display       = 'block';
+  document.getElementById('tab-bar').style.display    = 'none';
+  document.getElementById('spell-panel').style.display= 'none';
+  document.getElementById('books-panel').style.display= 'none';
   document.getElementById('feedback').classList.remove('show');
 
   const isYoung = ageGroup !== '5-6';
@@ -1576,9 +1706,12 @@ function startBookQuiz(bookId) {
   total         = wordPool.length;
   currentWord   = null;
 
-  document.getElementById('setup').style.display  = 'none';
-  document.getElementById('result').style.display = 'none';
-  document.getElementById('game').style.display   = 'block';
+  document.getElementById('setup').style.display      = 'none';
+  document.getElementById('result').style.display     = 'none';
+  document.getElementById('game').style.display       = 'block';
+  document.getElementById('tab-bar').style.display    = 'none';
+  document.getElementById('spell-panel').style.display= 'none';
+  document.getElementById('books-panel').style.display= 'none';
   document.getElementById('feedback').classList.remove('show');
   document.getElementById('young-ui').style.display = 'none';
   document.getElementById('quiz-ui').style.display  = 'block';
@@ -1587,7 +1720,8 @@ function startBookQuiz(bookId) {
 }
 
 function startAgain() {
-  if (gameType === 'book') startBookQuiz(currentBookId);
+  if (gameType === 'book')  startBookQuiz(currentBookId);
+  else if (gameType === 'spell') startSpell(spellAgeGroup);
   else startGame();
 }
 
@@ -1899,6 +2033,124 @@ function speakText(wordId) {
 function speakWord() {
   if (!currentWord) return;
   speakText(currentWord.id);
+}
+
+// ── Tab switching ──────────────────────────────────────────────
+function switchTab(tab) {
+  activeTab = tab;
+  document.getElementById('setup').style.display       = tab === 'wordplay' ? '' : 'none';
+  document.getElementById('spell-panel').style.display = tab === 'spell'    ? '' : 'none';
+  document.getElementById('books-panel').style.display = tab === 'books'    ? '' : 'none';
+  ['wordplay','spell','books'].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+  });
+}
+
+// ── Spell It ──────────────────────────────────────────────────
+function startSpell(age) {
+  spellAgeGroup = age;
+  spellPool     = shuffle([...SPELL_WORDS[age]]);
+  spellIndex    = 0;
+  spellTotal    = spellPool.length;
+  spellCorrect  = 0;
+  spellWord     = null;
+
+  document.getElementById('tab-bar').style.display    = 'none';
+  document.getElementById('setup').style.display      = 'none';
+  document.getElementById('spell-panel').style.display= 'none';
+  document.getElementById('books-panel').style.display= 'none';
+  document.getElementById('game').style.display       = 'none';
+  document.getElementById('result').style.display     = 'none';
+  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('spell-game').style.display = 'block';
+
+  showSpellWord();
+}
+
+function showSpellWord() {
+  if (spellIndex >= spellTotal) { showSpellResult(); return; }
+  spellWord = spellPool[spellIndex];
+
+  const pct = (spellIndex / spellTotal) * 100;
+  document.getElementById('spell-prog-bar').style.width = pct + '%';
+  document.getElementById('spell-prog-text').textContent = `${spellIndex + 1} / ${spellTotal}`;
+
+  document.getElementById('spell-emoji').textContent = spellWord.emoji;
+  document.getElementById('spell-zh').textContent    = spellWord.zh;
+  document.getElementById('spell-dash').textContent  = Array.from(spellWord.en).map(() => '_').join(' ');
+
+  const inp = document.getElementById('spell-input');
+  inp.value    = '';
+  inp.disabled = false;
+
+  document.getElementById('spell-feedback').style.display  = 'none';
+  document.getElementById('spell-check-btn').style.display = 'block';
+  document.getElementById('lbl-spell-check').textContent   = t('spellCheck');
+  document.getElementById('lbl-spell-next').textContent    = t('next');
+  document.getElementById('lbl-spell-hear').textContent    = t('spellHear');
+  document.getElementById('lbl-spell-back').textContent    = t('back');
+
+  setTimeout(() => inp.focus(), 50);
+  playSpellAudio();
+}
+
+function playSpellAudio() {
+  if (!spellWord) return;
+  const a = new Audio(`audio/en/${spellWord.id}.mp3`);
+  a.play().catch(() => {});
+}
+
+function checkSpell() {
+  if (!spellWord) return;
+  const inp    = document.getElementById('spell-input');
+  const typed  = inp.value.trim().toLowerCase();
+  const expect = spellWord.en.toLowerCase();
+  if (!typed) return;
+
+  inp.disabled = true;
+  document.getElementById('spell-check-btn').style.display = 'none';
+
+  const fb      = document.getElementById('spell-feedback');
+  const msgEl   = document.getElementById('spell-fb-msg');
+  const wordEl  = document.getElementById('spell-fb-word');
+  fb.style.display = 'block';
+
+  if (typed === expect) {
+    spellCorrect++;
+    msgEl.className  = 'spell-fb-correct';
+    msgEl.textContent = lang === 'en' ? '🎉 Correct!' : '🎉 答对了！';
+    wordEl.className = 'spell-fb-word';
+    wordEl.textContent = spellWord.en.toUpperCase();
+  } else {
+    msgEl.className  = 'spell-fb-wrong';
+    msgEl.textContent = lang === 'en' ? '✗ The correct spelling is:' : '✗ 正确拼写是：';
+    wordEl.className = 'spell-fb-word';
+    wordEl.textContent = spellWord.en.split('').join(' · ').toUpperCase();
+  }
+}
+
+function nextSpell() {
+  spellIndex++;
+  showSpellWord();
+}
+
+function showSpellResult() {
+  gameType = 'spell';
+  document.getElementById('spell-game').style.display = 'none';
+  document.getElementById('result').style.display     = 'block';
+
+  const pct = spellTotal > 0 ? spellCorrect / spellTotal : 0;
+  document.getElementById('res-emoji').textContent  = pct >= 0.8 ? '🏆' : pct >= 0.5 ? '🌟' : '💪';
+  document.getElementById('res-title').textContent  = lang === 'en' ? 'Spell It Complete!' : '拼写完成！';
+  document.getElementById('res-score').textContent  = t('scored', spellCorrect, spellTotal);
+  document.getElementById('res-stars').textContent  =
+    pct >= 0.8 ? '⭐⭐⭐' : pct >= 0.5 ? '⭐⭐' : '⭐';
+}
+
+function goSpellSetup() {
+  document.getElementById('spell-game').style.display = 'none';
+  document.getElementById('tab-bar').style.display    = '';
+  switchTab('spell');
 }
 
 // ══════════════════════════════════════════════════════════════════
