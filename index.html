@@ -105,7 +105,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 .books-label{font-size:.85rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
 .book-card{display:flex;align-items:center;gap:14px;background:#fff;border:3px solid #e0e0e0;border-radius:16px;padding:14px 16px;cursor:pointer;transition:.2s;margin-bottom:12px;}
 .book-card:hover{border-color:#ff6b6b;transform:translateX(4px);}
-.book-card .book-emoji{font-size:2.2rem;flex-shrink:0;}
+.book-card .book-cover{width:52px;height:70px;object-fit:cover;border-radius:6px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.18);}
 .book-card .book-info .book-title{font-size:1rem;font-weight:700;color:#333;}
 .book-card .book-info .book-sub{font-size:.78rem;color:#888;margin-top:2px;}
 
@@ -165,21 +165,21 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
   <hr class="section-divider"/>
   <div class="books-label" id="lbl-books-sec">📚 Book Quiz</div>
   <div class="book-card" onclick="startBookQuiz('alice')">
-    <div class="book-emoji">🐇</div>
+    <img class="book-cover" src="img/alice.jpg" alt="Alice in Wonderland">
     <div class="book-info">
       <div class="book-title" id="book-alice-title">Alice in Wonderland</div>
       <div class="book-sub" id="book-alice-sub">Chapters 1–5 · 20 Questions</div>
     </div>
   </div>
   <div class="book-card" onclick="startBookQuiz('caterpillar')">
-    <div class="book-emoji">🐛</div>
+    <img class="book-cover" src="img/caterpillar.jpg" alt="The Very Hungry Caterpillar">
     <div class="book-info">
       <div class="book-title" id="book-caterpillar-title">The Very Hungry Caterpillar</div>
       <div class="book-sub" id="book-caterpillar-sub">20 Questions</div>
     </div>
   </div>
   <div class="book-card" onclick="startBookQuiz('wildthings')">
-    <div class="book-emoji">👑</div>
+    <img class="book-cover" src="img/wildthings.jpg" alt="Where the Wild Things Are">
     <div class="book-info">
       <div class="book-title" id="book-wildthings-title">Where the Wild Things Are</div>
       <div class="book-sub" id="book-wildthings-sub">20 Questions</div>
