@@ -1817,12 +1817,12 @@ function showPicImage(url, emoji) {
   const loadingEl = document.getElementById('pic-loading');
   loadingEl.style.display = 'none';
   if (url) {
-    imgEl.src           = url;
-    imgEl.style.display = '';
+    imgEl.src             = url;
+    imgEl.style.display   = 'block';
     emojiEl.style.display = 'none';
   } else {
     emojiEl.textContent   = emoji;
-    emojiEl.style.display = '';
+    emojiEl.style.display = 'block';
     imgEl.style.display   = 'none';
   }
 }
@@ -1835,11 +1835,11 @@ function renderYoung() {
   const loadingEl = document.getElementById('pic-loading');
 
   // Reset picture zone to emoji/loading state
-  emojiEl.style.display   = ageGroup !== '1-3' ? '' : 'none';
+  emojiEl.style.display   = ageGroup !== '1-3' ? 'block' : 'none';
   emojiEl.textContent     = w.emoji;
   imgEl.style.display     = 'none';
   imgEl.src               = '';
-  loadingEl.style.display = ageGroup === '1-3' ? '' : 'none';
+  loadingEl.style.display = ageGroup === '1-3' ? 'block' : 'none';
 
   if (ageGroup === '1-3') {
     fetchWordImage(w.en).then(url => showPicImage(url, w.emoji));
