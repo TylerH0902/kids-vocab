@@ -1937,14 +1937,8 @@ function onTouchMove(e) {
 function onTouchEnd(e) {
   if (!touchCard) return;
   ghost.style.display = 'none';
-  const pz = document.getElementById('picture-zone');
-  const r  = pz.getBoundingClientRect();
-  const t  = e.changedTouches[0];
   pz.classList.remove('drop-over');
-  if (t.clientX >= r.left && t.clientX <= r.right &&
-      t.clientY >= r.top  && t.clientY <= r.bottom) {
-    checkAnswer(draggingId);
-  }
+  checkAnswer(draggingId);
   touchCard  = null;
   draggingId = null;
   e.preventDefault();
