@@ -1937,7 +1937,8 @@ function onTouchMove(e) {
 function onTouchEnd(e) {
   if (!touchCard) return;
   ghost.style.display = 'none';
-  pz.classList.remove('drop-over');
+  const pz = document.getElementById('picture-zone');
+  if (pz) pz.classList.remove('drop-over');
   checkAnswer(draggingId);
   touchCard  = null;
   draggingId = null;
