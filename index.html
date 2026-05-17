@@ -209,6 +209,17 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
       </div>
     </div>
   </div>
+
+  <div class="book-category">
+    <div class="book-category-label" id="lbl-cat-novel">Children's Novels</div>
+    <div class="book-card" onclick="startBookQuiz('wonder')">
+      <img class="book-cover" src="img/wonder.jpg" alt="Wonder">
+      <div class="book-info">
+        <div class="book-title" id="book-wonder-title">Wonder</div>
+        <div class="book-sub" id="book-wonder-sub">20 Questions</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Game -->
@@ -1206,6 +1217,173 @@ const BOOKS = {
           {id:"w19_3",en:"Left on the floor",zh:"留在地板上",   correct:false},
         ]},
     ]
+  },
+
+  wonder: {
+    id:"wonder", title_en:"Wonder", title_zh:"奇迹男孩",
+    sub_en:"20 Questions", sub_zh:"20道题",
+    questions:[
+      { qid:"wo0", q_en:"What is the name of the main character in Wonder?",
+        q_zh:"《奇迹男孩》主人公叫什么名字？",
+        opts:[
+          {id:"wo0_0",en:"August Pullman",  zh:"奥古斯特·普尔曼", correct:true},
+          {id:"wo0_1",en:"Jack Will",       zh:"杰克·威尔",       correct:false},
+          {id:"wo0_2",en:"Julian Albans",   zh:"朱利安·阿尔班斯", correct:false},
+          {id:"wo0_3",en:"Via Pullman",     zh:"薇娅·普尔曼",     correct:false},
+        ]},
+      { qid:"wo1", q_en:"What makes Auggie different from the other kids at his new school?",
+        q_zh:"奥古斯特和新学校其他同学有什么不同？",
+        opts:[
+          {id:"wo1_0",en:"He was born with a facial difference", zh:"他天生有面部差异", correct:true},
+          {id:"wo1_1",en:"He uses a wheelchair",                 zh:"他坐轮椅",         correct:false},
+          {id:"wo1_2",en:"He cannot speak",                      zh:"他不会说话",       correct:false},
+          {id:"wo1_3",en:"He is extremely tall",                 zh:"他非常高",         correct:false},
+        ]},
+      { qid:"wo2", q_en:"What grade does Auggie start at Beecher Prep?",
+        q_zh:"奥古斯特在比彻预备学校读几年级？",
+        opts:[
+          {id:"wo2_0",en:"5th grade", zh:"五年级", correct:true},
+          {id:"wo2_1",en:"4th grade", zh:"四年级", correct:false},
+          {id:"wo2_2",en:"6th grade", zh:"六年级", correct:false},
+          {id:"wo2_3",en:"3rd grade", zh:"三年级", correct:false},
+        ]},
+      { qid:"wo3", q_en:"How had Auggie been educated before starting at Beecher Prep?",
+        q_zh:"在上比彻预备学校之前，奥古斯特是怎么上学的？",
+        opts:[
+          {id:"wo3_0",en:"His mother taught him at home", zh:"妈妈在家教他",       correct:true},
+          {id:"wo3_1",en:"He attended a special school",  zh:"他上了一所特殊学校", correct:false},
+          {id:"wo3_2",en:"He had private tutors only",    zh:"他只有私人家教",     correct:false},
+          {id:"wo3_3",en:"He studied online",             zh:"他在网上学习",       correct:false},
+        ]},
+      { qid:"wo4", q_en:"What is the name of Auggie's beloved dog?",
+        q_zh:"奥古斯特心爱的狗叫什么名字？",
+        opts:[
+          {id:"wo4_0",en:"Daisy", zh:"黛西", correct:true},
+          {id:"wo4_1",en:"Bella", zh:"贝拉", correct:false},
+          {id:"wo4_2",en:"Max",   zh:"马克斯",correct:false},
+          {id:"wo4_3",en:"Buddy", zh:"巴迪", correct:false},
+        ]},
+      { qid:"wo5", q_en:"Who is the first student to sit with Auggie at lunch?",
+        q_zh:"谁是第一个在午餐时和奥古斯特坐在一起的同学？",
+        opts:[
+          {id:"wo5_0",en:"Summer",    zh:"萨默",   correct:true},
+          {id:"wo5_1",en:"Jack",      zh:"杰克",   correct:false},
+          {id:"wo5_2",en:"Charlotte", zh:"夏洛特", correct:false},
+          {id:"wo5_3",en:"Via",       zh:"薇娅",   correct:false},
+        ]},
+      { qid:"wo6", q_en:"Who becomes Auggie's closest friend at Beecher Prep?",
+        q_zh:"谁成为了奥古斯特在比彻预备学校最好的朋友？",
+        opts:[
+          {id:"wo6_0",en:"Jack Will", zh:"杰克·威尔", correct:true},
+          {id:"wo6_1",en:"Summer",    zh:"萨默",       correct:false},
+          {id:"wo6_2",en:"Miles",     zh:"迈尔斯",     correct:false},
+          {id:"wo6_3",en:"Amos",      zh:"阿莫斯",     correct:false},
+        ]},
+      { qid:"wo7", q_en:"What is the name of Auggie's older sister?",
+        q_zh:"奥古斯特的姐姐叫什么名字？",
+        opts:[
+          {id:"wo7_0",en:"Via",    zh:"薇娅",   correct:true},
+          {id:"wo7_1",en:"Emma",   zh:"艾玛",   correct:false},
+          {id:"wo7_2",en:"Sophie", zh:"苏菲",   correct:false},
+          {id:"wo7_3",en:"Lily",   zh:"莉莉",   correct:false},
+        ]},
+      { qid:"wo8", q_en:"What is the name of the school Auggie attends?",
+        q_zh:"奥古斯特就读的学校叫什么？",
+        opts:[
+          {id:"wo8_0",en:"Beecher Prep",       zh:"比彻预备学校",   correct:true},
+          {id:"wo8_1",en:"Greenhill Academy",  zh:"绿山学院",       correct:false},
+          {id:"wo8_2",en:"Meadowbrook School", zh:"草地溪学校",     correct:false},
+          {id:"wo8_3",en:"North River Prep",   zh:"北河预备学校",   correct:false},
+        ]},
+      { qid:"wo9", q_en:"Who is the main student who bullies Auggie?",
+        q_zh:"谁是欺负奥古斯特的主要同学？",
+        opts:[
+          {id:"wo9_0",en:"Julian", zh:"朱利安", correct:true},
+          {id:"wo9_1",en:"Eddie",  zh:"埃迪",   correct:false},
+          {id:"wo9_2",en:"Henry",  zh:"亨利",   correct:false},
+          {id:"wo9_3",en:"Miles",  zh:"迈尔斯", correct:false},
+        ]},
+      { qid:"wo10", q_en:"What does Mr. Browne share with the class each month?",
+        q_zh:"布朗先生每个月和班上同学分享什么？",
+        opts:[
+          {id:"wo10_0",en:"A precept — a wise saying", zh:"一句格言",     correct:true},
+          {id:"wo10_1",en:"A poem",                    zh:"一首诗",       correct:false},
+          {id:"wo10_2",en:"A science fact",            zh:"一个科学知识", correct:false},
+          {id:"wo10_3",en:"A historical story",        zh:"一个历史故事", correct:false},
+        ]},
+      { qid:"wo11", q_en:"What did Jack say on Halloween that broke Auggie's trust?",
+        q_zh:"杰克在万圣节说了什么，让奥古斯特失去了对他的信任？",
+        opts:[
+          {id:"wo11_0",en:"He said cruel things about Auggie not knowing Auggie could hear", zh:"他说了关于奥古斯特的残忍话语，不知道奥古斯特在旁边听着", correct:true},
+          {id:"wo11_1",en:"He refused to trick-or-treat with Auggie",                        zh:"他拒绝和奥古斯特一起要糖",                               correct:false},
+          {id:"wo11_2",en:"He pushed Auggie in the hallway",                                zh:"他在走廊推了奥古斯特",                                   correct:false},
+          {id:"wo11_3",en:"He told everyone Auggie's medical history",                      zh:"他告诉所有人奥古斯特的病史",                             correct:false},
+        ]},
+      { qid:"wo12", q_en:"At the nature retreat, who steps in to defend Auggie and Jack from older bullies?",
+        q_zh:"在自然营地，谁挺身而出保护奥古斯特和杰克不被大孩子欺负？",
+        opts:[
+          {id:"wo12_0",en:"Amos and other classmates", zh:"阿莫斯和其他同学", correct:true},
+          {id:"wo12_1",en:"A teacher",                 zh:"一位老师",         correct:false},
+          {id:"wo12_2",en:"Julian",                    zh:"朱利安",           correct:false},
+          {id:"wo12_3",en:"Summer",                    zh:"萨默",             correct:false},
+        ]},
+      { qid:"wo13", q_en:"What play does Via perform in at school?",
+        q_zh:"薇娅在学校参演了哪部戏剧？",
+        opts:[
+          {id:"wo13_0",en:"Our Town",                  zh:"我们的小镇",   correct:true},
+          {id:"wo13_1",en:"Romeo and Juliet",           zh:"罗密欧与朱丽叶",correct:false},
+          {id:"wo13_2",en:"The Wizard of Oz",           zh:"绿野仙踪",     correct:false},
+          {id:"wo13_3",en:"A Midsummer Night's Dream",  zh:"仲夏夜之梦",   correct:false},
+        ]},
+      { qid:"wo14", q_en:"Who gives up her leading role in the play so Via can perform?",
+        q_zh:"谁让出了戏剧的主角，让薇娅上台表演？",
+        opts:[
+          {id:"wo14_0",en:"Miranda",   zh:"米兰达", correct:true},
+          {id:"wo14_1",en:"Charlotte", zh:"夏洛特", correct:false},
+          {id:"wo14_2",en:"Summer",    zh:"萨默",   correct:false},
+          {id:"wo14_3",en:"Emma",      zh:"艾玛",   correct:false},
+        ]},
+      { qid:"wo15", q_en:"What favourite costume had Auggie worn for previous Halloweens?",
+        q_zh:"奥古斯特以前的万圣节最喜欢穿什么服装？",
+        opts:[
+          {id:"wo15_0",en:"An astronaut", zh:"宇航员",   correct:true},
+          {id:"wo15_1",en:"A vampire",    zh:"吸血鬼",   correct:false},
+          {id:"wo15_2",en:"A ghost",      zh:"鬼魂",     correct:false},
+          {id:"wo15_3",en:"A pirate",     zh:"海盗",     correct:false},
+        ]},
+      { qid:"wo16", q_en:"What is the name of Via's boyfriend?",
+        q_zh:"薇娅的男朋友叫什么名字？",
+        opts:[
+          {id:"wo16_0",en:"Justin", zh:"贾斯汀", correct:true},
+          {id:"wo16_1",en:"Henry",  zh:"亨利",   correct:false},
+          {id:"wo16_2",en:"Zach",   zh:"扎克",   correct:false},
+          {id:"wo16_3",en:"Marcus", zh:"马库斯", correct:false},
+        ]},
+      { qid:"wo17", q_en:"What do Auggie's classmates do to stand by him after the retreat?",
+        q_zh:"营地活动后，奥古斯特的同学们做了什么来支持他？",
+        opts:[
+          {id:"wo17_0",en:"They walk alongside him to show he is not alone", zh:"他们走在他身边，让他知道他并不孤单", correct:true},
+          {id:"wo17_1",en:"They write a letter to the principal",             zh:"他们给校长写了一封信",               correct:false},
+          {id:"wo17_2",en:"They refuse to speak to Julian",                  zh:"他们拒绝和朱利安说话",               correct:false},
+          {id:"wo17_3",en:"They hold a school assembly",                     zh:"他们举行了全校集会",                 correct:false},
+        ]},
+      { qid:"wo18", q_en:"What award does Auggie receive at the end-of-year ceremony?",
+        q_zh:"奥古斯特在年终典礼上获得了什么奖？",
+        opts:[
+          {id:"wo18_0",en:"The Henry Ward Beecher medal", zh:"亨利·沃德·比彻奖章", correct:true},
+          {id:"wo18_1",en:"The principal's award",        zh:"校长奖",              correct:false},
+          {id:"wo18_2",en:"A sports trophy",              zh:"体育奖杯",            correct:false},
+          {id:"wo18_3",en:"The science fair prize",       zh:"科学展览奖",          correct:false},
+        ]},
+      { qid:"wo19", q_en:"Who is the author of Wonder?",
+        q_zh:"《奇迹男孩》的作者是谁？",
+        opts:[
+          {id:"wo19_0",en:"R.J. Palacio", zh:"R.J.帕拉西奥", correct:true},
+          {id:"wo19_1",en:"Roald Dahl",   zh:"罗尔德·达尔",  correct:false},
+          {id:"wo19_2",en:"J.K. Rowling", zh:"J.K.罗琳",     correct:false},
+          {id:"wo19_3",en:"Louis Sachar", zh:"路易斯·萨奇尔", correct:false},
+        ]},
+    ]
   }
 };
 
@@ -1243,6 +1421,7 @@ const T = {
     bookDone:    "Quiz Complete!",
     catFairy:    "Fairy Tales",
     catPicture:  "Picture Books",
+    catNovel:    "Children's Novels",
   },
   zh: {
     title:       "🌟 词语游戏",
@@ -1274,6 +1453,7 @@ const T = {
     bookDone:    "测验完成！",
     catFairy:    "童话故事",
     catPicture:  "绘本",
+    catNovel:    "儿童小说",
   }
 };
 
@@ -1313,7 +1493,8 @@ function applyLang() {
   document.getElementById('lbl-books-sec').textContent   = t('booksSec');
   document.getElementById('lbl-cat-fairy').textContent   = t('catFairy');
   document.getElementById('lbl-cat-picture').textContent = t('catPicture');
-  ['alice','alice2','alice3','caterpillar','wildthings'].forEach(id => {
+  document.getElementById('lbl-cat-novel').textContent   = t('catNovel');
+  ['alice','alice2','alice3','caterpillar','wildthings','wonder'].forEach(id => {
     const b = BOOKS[id];
     document.getElementById(`book-${id}-title`).textContent = lang === 'en' ? b.title_en : b.title_zh;
     document.getElementById(`book-${id}-sub`).textContent   = lang === 'en' ? b.sub_en   : b.sub_zh;
