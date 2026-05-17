@@ -46,6 +46,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 #picture-zone.wrong{background:#fee8e8;box-shadow:0 4px 20px rgba(255,80,80,.4);}
 .big-emoji{font-size:6rem;line-height:1;cursor:pointer;user-select:none;}
 .drop-hint{font-size:.8rem;color:#ccc;margin-top:8px;}
+#pic-img{width:160px;height:160px;object-fit:contain;border-radius:16px;display:none;cursor:pointer;}
+#pic-loading{font-size:2rem;display:none;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
 /* ── Word choices (drag cards) ── */
 #choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
@@ -289,6 +292,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
   <div id="young-ui">
     <div id="picture-zone" ondragover="onDropZoneOver(event)" ondragleave="onDropZoneLeave(event)" ondrop="onDrop(event)">
       <div class="big-emoji" id="pic-emoji">🐕</div>
+      <div id="pic-loading">⏳</div>
+      <img id="pic-img" alt="" onclick="speakWord()" />
       <div class="drop-hint" id="lbl-drop-hint">Drag the correct word here 👆</div>
     </div>
     <div id="choices"></div>
@@ -1774,10 +1779,72 @@ function refreshCurrentUI() {
   else                    renderQuiz();
 }
 
+// ── Pixabay image loader ────────────────────────────────────────
+const _PX_KEY   = '55902333-4a758f2cdefcb17ac7698976a';
+const _PX_CACHE = 'px2_';
+
+async function fetchWordImage(wordEn) {
+  const key = _PX_CACHE + wordEn;
+  const hit  = localStorage.getItem(key);
+  if (hit) return hit === 'NONE' ? null : hit;
+  try {
+    const q   = encodeURIComponent(wordEn);
+    const url = `https://pixabay.com/api/?key=${_PX_KEY}&q=${q}&image_type=illustration&safesearch=true&order=popular&per_page=5&min_width=200`;
+    const res = await fetch(url);
+    const js  = await res.json();
+    if (js.hits && js.hits.length) {
+      const imgUrl = js.hits[0].webformatURL;
+      localStorage.setItem(key, imgUrl);
+      return imgUrl;
+    }
+    // fallback: try photos if no illustrations
+    const url2 = `https://pixabay.com/api/?key=${_PX_KEY}&q=${q}&image_type=photo&safesearch=true&order=popular&per_page=3&min_width=200`;
+    const res2 = await fetch(url2);
+    const js2  = await res2.json();
+    if (js2.hits && js2.hits.length) {
+      const imgUrl = js2.hits[0].webformatURL;
+      localStorage.setItem(key, imgUrl);
+      return imgUrl;
+    }
+  } catch (_) {}
+  localStorage.setItem(key, 'NONE');
+  return null;
+}
+
+function showPicImage(url, emoji) {
+  const emojiEl   = document.getElementById('pic-emoji');
+  const imgEl     = document.getElementById('pic-img');
+  const loadingEl = document.getElementById('pic-loading');
+  loadingEl.style.display = 'none';
+  if (url) {
+    imgEl.src           = url;
+    imgEl.style.display = '';
+    emojiEl.style.display = 'none';
+  } else {
+    emojiEl.textContent   = emoji;
+    emojiEl.style.display = '';
+    imgEl.style.display   = 'none';
+  }
+}
+
 // ── Young (1-3 / 3-4) ──────────────────────────────────────────
 function renderYoung() {
   const w = currentWord;
-  document.getElementById('pic-emoji').textContent = w.emoji;
+  const emojiEl   = document.getElementById('pic-emoji');
+  const imgEl     = document.getElementById('pic-img');
+  const loadingEl = document.getElementById('pic-loading');
+
+  // Reset picture zone to emoji/loading state
+  emojiEl.style.display   = ageGroup !== '1-3' ? '' : 'none';
+  emojiEl.textContent     = w.emoji;
+  imgEl.style.display     = 'none';
+  imgEl.src               = '';
+  loadingEl.style.display = ageGroup === '1-3' ? '' : 'none';
+
+  if (ageGroup === '1-3') {
+    fetchWordImage(w.en).then(url => showPicImage(url, w.emoji));
+  }
+
   document.getElementById('lbl-drop-hint').textContent = t('dropHint');
   resetPictureZone();
 
