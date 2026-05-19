@@ -78,14 +78,39 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 .quiz-opt.locked{pointer-events:none;}
 
 /* ── Feedback overlay ── */
-#feedback{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;align-items:center;justify-content:center;flex-direction:column;}
-#feedback.show{display:flex;}
-.fb-box{background:#fff;border-radius:24px;padding:32px 40px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2);animation:popIn .35s ease;}
-@keyframes popIn{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
-.fb-emoji{font-size:4rem;}
+#feedback{
+  display:flex;position:fixed;inset:0;
+  background:rgba(0,0,0,.4);z-index:100;
+  align-items:center;justify-content:center;flex-direction:column;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease;
+}
+#feedback.show{opacity:1;pointer-events:auto;}
+.fb-box{
+  background:#fff;border-radius:28px;padding:32px 40px;text-align:center;
+  box-shadow:0 12px 48px rgba(0,0,0,.25);
+}
+#feedback.show .fb-box{animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{
+  0%  {transform:scale(.4) rotate(-6deg);opacity:0}
+  100%{transform:scale(1)  rotate(0deg); opacity:1}
+}
+.fb-emoji{font-size:4.5rem;display:block;}
+#feedback.show .fb-emoji{animation:emojiPop .5s cubic-bezier(.34,1.56,.64,1) .12s both;}
+@keyframes emojiPop{
+  0%  {transform:scale(0) rotate(-30deg)}
+  100%{transform:scale(1) rotate(0deg)}
+}
 .fb-msg{font-size:1.3rem;font-weight:700;margin:10px 0 4px;}
 .fb-sub{font-size:.9rem;color:#888;}
-.fb-next{margin-top:18px;padding:12px 32px;background:linear-gradient(135deg,#ff6b6b,#ff8e53);color:#fff;font-size:1.1rem;font-weight:700;border:none;border-radius:14px;cursor:pointer;box-shadow:0 3px 10px rgba(255,107,107,.4);}
+.fb-next{
+  margin-top:18px;padding:12px 32px;
+  background:linear-gradient(135deg,#ff6b6b,#ff8e53);color:#fff;
+  font-size:1.1rem;font-weight:700;border:none;border-radius:14px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(255,107,107,.4);
+}
+#feedback.show .fb-next{animation:fadeUp .35s ease .3s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Result screen ── */
 #result{display:none;max-width:480px;margin:30px auto;padding:24px;text-align:center;}
