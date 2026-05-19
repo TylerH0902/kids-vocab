@@ -2037,7 +2037,7 @@ function onQuizClick(btn) {
   if (isRight) btn.classList.add('correct-ans');
   else         btn.classList.add('wrong-ans');
   if (isRight) correct++;
-  showFeedback(isRight);
+  setTimeout(() => showFeedback(isRight), 420);
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -2054,7 +2054,7 @@ function checkAnswer(id) {
   document.querySelectorAll('.word-card').forEach(c => c.classList.add('used'));
 
   if (isRight) correct++;
-  showFeedback(isRight);
+  setTimeout(() => showFeedback(isRight), 420);
 }
 
 // ══════════════════════════════════════════════════════════════════
