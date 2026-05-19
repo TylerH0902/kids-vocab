@@ -79,38 +79,33 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fff9f0;min-height:100vh
 
 /* ── Feedback overlay ── */
 #feedback{
-  display:flex;position:fixed;inset:0;
-  background:rgba(0,0,0,.4);z-index:100;
-  align-items:center;justify-content:center;flex-direction:column;
+  display:flex;position:fixed;inset:0;z-index:100;
+  align-items:center;justify-content:center;flex-direction:column;gap:12px;
   opacity:0;pointer-events:none;
-  transition:opacity .2s ease;
+  transition:opacity .18s ease;
 }
 #feedback.show{opacity:1;pointer-events:auto;}
-.fb-box{
-  background:#fff;border-radius:28px;padding:32px 40px;text-align:center;
-  box-shadow:0 12px 48px rgba(0,0,0,.25);
+#feedback.fb-correct{background:linear-gradient(160deg,#56d46a,#1db954);}
+#feedback.fb-wrong  {background:linear-gradient(160deg,#ff6b6b,#e03030);}
+.fb-box{display:contents;}
+.fb-emoji{font-size:7rem;line-height:1;display:block;}
+#feedback.show .fb-emoji{animation:dropBounce .55s cubic-bezier(.34,1.56,.64,1);}
+@keyframes dropBounce{
+  0%  {transform:translateY(-80px) scale(.6);opacity:0}
+  100%{transform:translateY(0)     scale(1); opacity:1}
 }
-#feedback.show .fb-box{animation:popIn .4s cubic-bezier(.34,1.56,.64,1);}
-@keyframes popIn{
-  0%  {transform:scale(.4) rotate(-6deg);opacity:0}
-  100%{transform:scale(1)  rotate(0deg); opacity:1}
-}
-.fb-emoji{font-size:4.5rem;display:block;}
-#feedback.show .fb-emoji{animation:emojiPop .5s cubic-bezier(.34,1.56,.64,1) .12s both;}
-@keyframes emojiPop{
-  0%  {transform:scale(0) rotate(-30deg)}
-  100%{transform:scale(1) rotate(0deg)}
-}
-.fb-msg{font-size:1.3rem;font-weight:700;margin:10px 0 4px;}
-.fb-sub{font-size:.9rem;color:#888;}
+.fb-msg{font-size:1.8rem;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.2);}
+#feedback.show .fb-msg{animation:fadeUp .3s ease .18s both;}
+.fb-sub{font-size:1rem;color:rgba(255,255,255,.85);}
+#feedback.show .fb-sub{animation:fadeUp .3s ease .25s both;}
 .fb-next{
-  margin-top:18px;padding:12px 32px;
-  background:linear-gradient(135deg,#ff6b6b,#ff8e53);color:#fff;
-  font-size:1.1rem;font-weight:700;border:none;border-radius:14px;cursor:pointer;
-  box-shadow:0 3px 10px rgba(255,107,107,.4);
+  margin-top:12px;padding:14px 40px;
+  background:rgba(255,255,255,.25);color:#fff;
+  font-size:1.15rem;font-weight:800;border:3px solid rgba(255,255,255,.6);
+  border-radius:50px;cursor:pointer;backdrop-filter:blur(4px);
 }
-#feedback.show .fb-next{animation:fadeUp .35s ease .3s both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+#feedback.show .fb-next{animation:fadeUp .3s ease .35s both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── Result screen ── */
 #result{display:none;max-width:480px;margin:30px auto;padding:24px;text-align:center;}
@@ -1717,7 +1712,7 @@ function goSetup() {
   document.getElementById('game').style.display         = 'none';
   document.getElementById('spell-game').style.display   = 'none';
   document.getElementById('result').style.display       = 'none';
-  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').classList.remove('show','fb-correct','fb-wrong');
   document.getElementById('game-back-btn').style.display = '';
   switchTab(activeTab);
 }
@@ -1739,7 +1734,7 @@ function startGame() {
   document.getElementById('tab-bar').style.display    = 'none';
   document.getElementById('spell-panel').style.display= 'none';
   document.getElementById('books-panel').style.display= 'none';
-  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').classList.remove('show','fb-correct','fb-wrong');
   document.getElementById('game-back-btn').style.display = gameMode === 'test' ? 'none' : '';
 
   const isYoung = ageGroup !== '5-6';
@@ -1766,7 +1761,7 @@ function startBookQuiz(bookId) {
   document.getElementById('tab-bar').style.display    = 'none';
   document.getElementById('spell-panel').style.display= 'none';
   document.getElementById('books-panel').style.display= 'none';
-  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').classList.remove('show','fb-correct','fb-wrong');
   document.getElementById('young-ui').style.display = 'none';
   document.getElementById('quiz-ui').style.display  = 'block';
 
@@ -2086,7 +2081,7 @@ function checkAnswer(id) {
 // FEEDBACK
 // ══════════════════════════════════════════════════════════════════
 function showFeedback(isRight) {
-  document.getElementById('fb-emoji').textContent = isRight ? '🌟' : '😊';
+  document.getElementById('fb-emoji').textContent = isRight ? '🌟' : '💪';
   document.getElementById('fb-msg').textContent   = t(isRight ? 'correct' : 'wrong');
   if (gameType === 'book') {
     document.getElementById('fb-sub').textContent = '';
@@ -2094,11 +2089,15 @@ function showFeedback(isRight) {
     document.getElementById('fb-sub').textContent = t(isRight ? 'correctSub' : 'wrongSub', currentWord[lang]);
   }
   document.getElementById('fb-next-btn').textContent = t('next');
-  document.getElementById('feedback').classList.add('show');
+  const el = document.getElementById('feedback');
+  el.classList.remove('fb-correct', 'fb-wrong');
+  el.classList.add(isRight ? 'fb-correct' : 'fb-wrong');
+  el.classList.add('show');
 }
 
 function nextWord() {
-  document.getElementById('feedback').classList.remove('show');
+  const el = document.getElementById('feedback');
+  el.classList.remove('show', 'fb-correct', 'fb-wrong');
   queueIndex++;
   showWord();
 }
@@ -2187,7 +2186,7 @@ function startSpell(age) {
   document.getElementById('books-panel').style.display= 'none';
   document.getElementById('game').style.display       = 'none';
   document.getElementById('result').style.display     = 'none';
-  document.getElementById('feedback').classList.remove('show');
+  document.getElementById('feedback').classList.remove('show','fb-correct','fb-wrong');
   document.getElementById('spell-game').style.display = 'block';
   document.getElementById('spell-back-btn').style.display = 'none';
 
